@@ -1,0 +1,11 @@
+State,Facility_Type,Urban_Rural,Telehealth_Available,Clients_Served
+NY,Private,Urban,1,200
+NY,Public,Rural,0,150
+CA,Public,Urban,1,180
+CA,Private,Rural,0,120
+TX,Public,Urban,1,300
+TX,Private,Urban,1,250
+TX,Private,Rural,0,130
+FL,Public,Urban,1,220
+FL,Private,Rural,0,100
+FL,Public,Rural,0,90

@@ -1,0 +1,74 @@
+
+---
+title: "Mental Health Service Accessibility in the U.S."
+author: "Angel Acevedo"
+format: html
+---
+
+## Introduction
+
+This analysis explores the distribution and accessibility of mental health services across U.S. states using a sample dataset derived from the National Mental Health Services Survey (N-MHSS). We aim to understand how services vary by region and whether accessibility through telehealth differs between urban and rural areas.
+
+## Questions
+
+1. What is the distribution of mental health facilities across different states?
+2. Is there a significant difference in the availability of telehealth services between urban and rural areas?
+
+## Descriptive Analysis
+
+### Histogram: Facilities per State
+
+```{r}
+library(ggplot2)
+df <- read.csv("mental_health_sample.csv")
+ggplot(df, aes(x = State)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Number of Mental Health Facilities per State", x = "State", y = "Count")
+```
+
+### Boxplot: Clients Served in Urban vs Rural Facilities
+
+```{r}
+ggplot(df, aes(x = Urban_Rural, y = Clients_Served)) +
+  geom_boxplot(fill = "orange") +
+  labs(title = "Clients Served in Urban vs Rural Facilities")
+```
+
+### Scatterplot: Clients Served vs Telehealth Availability
+
+```{r}
+ggplot(df, aes(x = Telehealth_Available, y = Clients_Served)) +
+  geom_jitter(width = 0.2, height = 0, color = "purple", alpha = 0.7) +
+  labs(title = "Clients Served vs Telehealth Availability", x = "Telehealth Available", y = "Clients Served")
+```
+
+### Summary Statistics by Group
+
+```{r}
+library(dplyr)
+df %>%
+  group_by(Urban_Rural) %>%
+  summarise(
+    Mean = mean(Clients_Served),
+    SD = sd(Clients_Served),
+    Min = min(Clients_Served),
+    Max = max(Clients_Served)
+  )
+```
+
+## Inferential Statistics
+
+### Two Sample t-Test on Telehealth Availability
+
+```{r}
+table_data <- table(df$Urban_Rural, df$Telehealth_Available)
+chisq.test(table_data)
+```
+
+**Conclusion**: The t-test shows a statistically significant difference in telehealth availability between urban and rural facilities (p < 0.05).
+
+## Conclusion
+
+In this analysis, we explored the distribution of mental health facilities by state and compared telehealth availability between urban and rural settings. Urban areas had higher client loads and more telehealth support.
+
+Our statistical test confirmed that telehealth availability is significantly higher in urban areas, highlighting potential gaps in rural mental health access. Expanding digital infrastructure and remote care support in rural areas could help bridge this disparity.
